@@ -1,8 +1,8 @@
 ﻿@model LivrariaWeb.Models.LivroGridViewModel
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Livros";
+    ViewBag.Title = "Livros";
 }
 <div class="row">
     <div class="col-md-6">
@@ -47,8 +47,8 @@
                     <a href="@Url.Action("Editar", "Livro", new { id = item.Id })" style="color: #000; margin-right: 10px" title="Editar">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
-                    <a style="color: #000" title="Excluir" 
-                       data-toggle="modal" 
+                    <a style="color: #000" title="Excluir"
+                       data-toggle="modal"
                        data-id-livro="@item.Id"
                        data-titulo-livro="@item.Titulo"
                        data-target="#modalExemplo" id="exluir-livro">
@@ -60,33 +60,8 @@
     </tbody>
 </table>
 
-<!-- Botão para acionar modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo">
-    Abrir modal de demonstração
-</button>
-
 <!-- Modal -->
-<div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <input type="hidden" id="livro-para-excluir">
-    <input type="hidden" id="nome-livro-para-excluir">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Excluir livro</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true"></span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Tem certeza que deseja excluir o livro "<b><span class="titulo-livro"></span></b>"?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <a id="acao-exclusao" class="btn btn-danger">Excluir</a>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("_ModalExclusaoPartial");
 
 <script>
     $(function () {
@@ -96,4 +71,3 @@
         });
     });
 </script>
-

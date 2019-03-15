@@ -256,6 +256,7 @@
     <Content Include="Unity.config" />
     <Content Include="Views\Livro\_FormPartial.cshtml" />
     <Content Include="Views\Livro\Editar.cshtml" />
+    <Content Include="Views\Livro\_ModalExclusaoPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
