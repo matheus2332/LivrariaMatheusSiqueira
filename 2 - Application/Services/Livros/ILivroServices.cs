@@ -16,5 +16,7 @@ namespace Services.Livros
         List<LivroGridDataDto> GetGrid(string titulo);
 
         LivroFormDto Save(LivroFormDto formDto);
+
+        bool Delete(Guid id);
     }
 }

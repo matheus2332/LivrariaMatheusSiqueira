@@ -169,5 +169,15 @@ namespace Services.Livros
 
             return formDto.IsValid;
         }
+
+        public bool Delete(Guid id)
+        {
+            var livroParaExcluir = GetById(id);
+            if (livroParaExcluir == null) return false;
+
+            _context.Livros.Remove(livroParaExcluir);
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

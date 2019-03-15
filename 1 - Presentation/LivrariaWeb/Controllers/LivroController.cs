@@ -23,6 +23,45 @@ namespace LivrariaWeb.Controllers
             _livroServices = livroServices;
         }
 
+        [HttpGet]
+        public ActionResult Editar(Guid id)
+        {
+            var dto = _livroServices.GetFormDtoById(id);
+            var viewModel = MontarViewModel(dto);
+            return View("Editar", SetFormViewModel(viewModel));
+        }
+
+        [HttpPost]
+        public ActionResult Editar(LivroFormViewModel formViewModel)
+        {
+            var dto = new LivroFormDto
+            {
+                Id = formViewModel.Id,
+
+                AnoDePublicacao = formViewModel.AnoDePublicacao,
+                Autor = formViewModel.Autor,
+                AutoresSecundarios = formViewModel.AutoresSecundarios,
+                Editora = formViewModel.Editora,
+                GeneroId = formViewModel.GeneroId,
+                Isbn = formViewModel.Isbn,
+                NumeroDaEdicao = formViewModel.NumeroDaEdicao,
+                NumeroDePaginas = formViewModel.NumeroDePaginas,
+                QuantidadeEmEstoque = formViewModel.QuantidadeEmEstoque,
+                Serie = formViewModel.Serie,
+                SubTitulo = formViewModel.SubTitulo,
+                Titulo = formViewModel.Titulo,
+            };
+
+            var formDto = _livroServices.Edit(dto);
+            if (!formDto.IsValid)
+            {
+                AdicionarErrosDoValidatorNoModelState(formDto);
+                var viewModel = SetFormViewModel(MontarViewModel(formDto));
+                return View("Novo", viewModel);
+            }
+            return Index();
+        }
+
         // GET: Livros
         public ActionResult Index()
         {
@@ -77,12 +116,20 @@ namespace LivrariaWeb.Controllers
             return Index();
         }
 
+        public ActionResult Delete(Guid id)
+        {
+            _livroServices.Delete(id);
+            return Index();
+        }
+
         private void AdicionarErrosDoValidatorNoModelState(BaseDto dto)
         {
             if (dto.Erros == null || !dto.Erros.Any()) return;
             dto.Erros.ToList()
                 .ForEach(x => ModelState.AddModelError(x.PropertyName, x.Erro));
         }
+
+        private Dictionary<Guid, string> GetGeneros() => _generoServices.GetDropDown();
 
         private LivroFormViewModel MontarViewModel(LivroFormDto dto)
         {
@@ -105,51 +152,10 @@ namespace LivrariaWeb.Controllers
             };
         }
 
-        [HttpGet]
-        public ActionResult Editar(Guid id)
-        {
-            var dto = _livroServices.GetFormDtoById(id);
-            var viewModel = MontarViewModel(dto);
-            return View("Editar", SetFormViewModel(viewModel));
-        }
-
-        [HttpPost]
-        public ActionResult Editar(LivroFormViewModel formViewModel)
-        {
-            var dto = new LivroFormDto
-            {
-                Id = formViewModel.Id,
-
-                AnoDePublicacao = formViewModel.AnoDePublicacao,
-                Autor = formViewModel.Autor,
-                AutoresSecundarios = formViewModel.AutoresSecundarios,
-                Editora = formViewModel.Editora,
-                GeneroId = formViewModel.GeneroId,
-                Isbn = formViewModel.Isbn,
-                NumeroDaEdicao = formViewModel.NumeroDaEdicao,
-                NumeroDePaginas = formViewModel.NumeroDePaginas,
-                QuantidadeEmEstoque = formViewModel.QuantidadeEmEstoque,
-                Serie = formViewModel.Serie,
-                SubTitulo = formViewModel.SubTitulo,
-                Titulo = formViewModel.Titulo,
-            };
-
-            var formDto = _livroServices.Edit(dto);
-            if (!formDto.IsValid)
-            {
-                AdicionarErrosDoValidatorNoModelState(formDto);
-                var viewModel = SetFormViewModel(MontarViewModel(formDto));
-                return View("Novo", viewModel);
-            }
-            return Index();
-        }
-
         private LivroFormViewModel SetFormViewModel(LivroFormViewModel formViewModel)
         {
             formViewModel.Generos = GetGeneros();
             return formViewModel;
         }
-
-        private Dictionary<Guid, string> GetGeneros() => _generoServices.GetDropDown();
     }
 }
