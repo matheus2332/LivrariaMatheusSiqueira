@@ -59,7 +59,7 @@ namespace LivrariaWeb.Controllers
                 var viewModel = SetFormViewModel(MontarViewModel(formDto));
                 return View("Novo", viewModel);
             }
-            return Index();
+            return RedirectToAction("Index");
         }
 
         // GET: Livros
@@ -113,13 +113,13 @@ namespace LivrariaWeb.Controllers
                 var viewModel = SetFormViewModel(MontarViewModel(formDto));
                 return View("Novo", viewModel);
             }
-            return Index();
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(Guid id)
         {
             _livroServices.Delete(id);
-            return Index();
+            return RedirectToAction("Index");
         }
 
         private void AdicionarErrosDoValidatorNoModelState(BaseDto dto)

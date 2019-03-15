@@ -51,7 +51,8 @@
                        data-toggle="modal"
                        data-id-livro="@item.Id"
                        data-titulo-livro="@item.Titulo"
-                       data-target="#modalExemplo" id="exluir-livro">
+                       data-target="#modalExemplo"
+                       class="exluir-livro">
                         <i class="fas fa-trash-alt"></i>
                     </a>
                 </td>
@@ -65,7 +66,7 @@
 
 <script>
     $(function () {
-        $("#exluir-livro").click(function () {
+        $(".exluir-livro").click(function () {
             $('.titulo-livro').text($(this).data('titulo-livro'));
             $('#acao-exclusao').attr("href", "/livro/delete/" + $(this).data('id-livro'))
         });
