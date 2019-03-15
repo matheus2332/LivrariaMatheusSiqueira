@@ -13,7 +13,7 @@ namespace Tests
     public class LivroServicesTests
     {
         [TestMethod]
-        public void SaveTests()
+        public void Savar_livro_com_todos_dados()
         {
             var context = new Data.Context();
 
@@ -33,11 +33,12 @@ namespace Tests
                 Titulo = "Professional C# 7"
             };
             var services = new LivrosServices(context, new GeneroServices(context), new LivroBuilder());
-            services.Save(formDto);
+            var dto = services.Save(formDto);
+            Assert.IsTrue(dto.IsValid);
         }
 
         [TestMethod]
-        public void EditarTests()
+        public void Editar_livro_com_todos_dados()
         {
             var context = new Data.Context();
             var id = context.Livros.Select(x => x.Id).FirstOrDefault();
@@ -60,7 +61,88 @@ namespace Tests
                 Id = id
             };
             var services = new LivrosServices(context, new GeneroServices(context), new LivroBuilder());
-            services.Edit(formDto);
+            var dto = services.Edit(formDto);
+            Assert.IsTrue(dto.IsValid);
+        }
+
+        [TestMethod]
+        public void Editar_livro_com_dados_minimos()
+        {
+            var context = new Data.Context();
+            var id = context.Livros.Select(x => x.Id).FirstOrDefault();
+
+            var formDto = new LivroFormDto
+            {
+                Autor = "Christian Nagel editado",
+                Editora = "Wrox editado",
+                GeneroId = context.Generos.Select(x => x.Id).FirstOrDefault(),
+                Titulo = "Professional C# 7 editado",
+
+                Id = id
+            };
+            var services = new LivrosServices(context, new GeneroServices(context), new LivroBuilder());
+            var dto = services.Edit(formDto);
+            Assert.IsTrue(dto.IsValid);
+        }
+
+        [TestMethod]
+        public void Salvar_livro_com_dados_minimos()
+        {
+            var context = new Data.Context();
+            var id = context.Livros.Select(x => x.Id).FirstOrDefault();
+
+            var formDto = new LivroFormDto
+            {
+                Autor = "Christian Nagel",
+                Editora = "Wrox",
+                GeneroId = context.Generos.Select(x => x.Id).FirstOrDefault(),
+                Titulo = "Professional C# 7",
+
+                Id = id
+            };
+            var services = new LivrosServices(context, new GeneroServices(context), new LivroBuilder());
+            var dto = services.Edit(formDto);
+            Assert.IsTrue(dto.IsValid);
+        }
+
+        [TestMethod]
+        public void Salvar_livro_com_ano_de_publicacao_maior_que_o_atual()
+        {
+            var context = new Data.Context();
+            var id = context.Livros.Select(x => x.Id).FirstOrDefault();
+
+            var formDto = new LivroFormDto
+            {
+                Autor = "Christian Nagel",
+                Editora = "Wrox",
+                GeneroId = context.Generos.Select(x => x.Id).FirstOrDefault(),
+                Titulo = "Professional C# 7",
+                AnoDePublicacao = DateTime.Now.Year + 1,
+                Id = id
+            };
+            var services = new LivrosServices(context, new GeneroServices(context), new LivroBuilder());
+            var dto = services.Edit(formDto);
+            Assert.IsFalse(dto.IsValid);
+        }
+
+        [TestMethod]
+        public void Salvar_livro_com_ano_de_publicacao_igual_o_atual()
+        {
+            var context = new Data.Context();
+            var id = context.Livros.Select(x => x.Id).FirstOrDefault();
+
+            var formDto = new LivroFormDto
+            {
+                Autor = "Christian Nagel",
+                Editora = "Wrox",
+                GeneroId = context.Generos.Select(x => x.Id).FirstOrDefault(),
+                Titulo = "Professional C# 7",
+                AnoDePublicacao = DateTime.Now.Year,
+                Id = id
+            };
+            var services = new LivrosServices(context, new GeneroServices(context), new LivroBuilder());
+            var dto = services.Edit(formDto);
+            Assert.IsTrue(dto.IsValid);
         }
 
         [TestMethod]
