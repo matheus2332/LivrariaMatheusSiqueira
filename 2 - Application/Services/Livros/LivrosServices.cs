@@ -91,7 +91,9 @@ namespace Services.Livros
                 query = query.Where(g => SqlFunctions.PatIndex(parametro, g.Titulo.ToLower()) > 0);
             }
 
-            return query.Select(x => new LivroGridDataDto
+            return query
+            .OrderBy(x => x.Titulo)
+            .Select(x => new LivroGridDataDto
             {
                 AnoDePublicacao = x.AnoDePublicacao,
                 Autor = x.Autor,
