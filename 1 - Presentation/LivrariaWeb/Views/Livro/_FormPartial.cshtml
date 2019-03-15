@@ -1,0 +1,104 @@
+﻿@model LivrariaWeb.Models.LivroFormViewModel
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Titulo)
+                    @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SubTitulo, "Subtitulo")
+                    @Html.EditorFor(model => model.SubTitulo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SubTitulo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Autor)
+                    @Html.EditorFor(model => model.Autor, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Autor, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Editora)
+                    @Html.EditorFor(model => model.Editora, new { htmlAttributes = new { @class = "form-control", style = "width: 250px;" } })
+                    @Html.ValidationMessageFor(model => model.Editora, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.GeneroId, "Gênero")
+                @Html.DropDownListFor(model => model.GeneroId, new SelectList(Model.Generos, "Key", "Value"), "Selecione", new { @class = "form-control" })
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Isbn, "ISBN")
+                    @Html.EditorFor(model => model.Isbn, new { htmlAttributes = new { @class = "form-control", style = "width: 200px;" } })
+                    @Html.ValidationMessageFor(model => model.Isbn, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NumeroDaEdicao, "Numero da edição")
+                    @Html.EditorFor(model => model.NumeroDaEdicao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NumeroDaEdicao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NumeroDePaginas, "Numero de páginas")
+                    @Html.EditorFor(model => model.NumeroDePaginas, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NumeroDePaginas, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AnoDePublicacao, "Ano de publicação")
+                    @Html.EditorFor(model => model.AnoDePublicacao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AnoDePublicacao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AutoresSecundarios, "Autores secundários")
+                    @Html.EditorFor(model => model.AutoresSecundarios, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AutoresSecundarios, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Serie)
+                    @Html.EditorFor(model => model.Serie, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Serie, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QuantidadeEmEstoque, "Quantidade em estoque")
+                    @Html.EditorFor(model => model.QuantidadeEmEstoque, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.QuantidadeEmEstoque, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="Salvar" class="btn btn-success btn-salvar" />
+        <a href="@Url.Action("Index", "Livro")" class="btn btn-default">
+            Voltar
+        </a>
+    </div>
+</div>

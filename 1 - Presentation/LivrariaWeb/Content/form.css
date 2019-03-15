@@ -1,0 +1,8 @@
+﻿input,
+select,
+textarea {
+    max-width: 100%;
+}
+.btn-salvar{
+    margin-right: 5px
+}
